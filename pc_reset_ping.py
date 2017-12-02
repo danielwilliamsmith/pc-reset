@@ -193,9 +193,6 @@ if __name__ == '__main__':
             time.sleep(my_pingboy.config_values['wait_between_pings'])
 
     except KeyboardInterrupt:
-        # Try to open the relay before exiting so that the PC does not get stuck
-        # in an endless restart.
-        GPIO.output(my_pingboy.config_values['relay_channel'], GPIO.HIGH)
         GPIO.cleanup()
 
         print("\nHe be gone, he be outta here!")

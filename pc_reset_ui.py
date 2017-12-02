@@ -127,10 +127,7 @@ class PcResetMainWindow(QMainWindow):
         # Save the current size and position of the UI so that it can
         # be restored to the same state the next time it runs.
         self.settings.setValue("geometry", self.saveGeometry())
-
-        # Try to open the relay before exiting so that the PC does not get stuck
-        # in an endless restart.
-        GPIO.output(self.config_relay_channel, GPIO.HIGH)
+        
         GPIO.cleanup()
 
         super(PcResetMainWindow, self).closeEvent(event)
