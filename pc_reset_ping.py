@@ -27,6 +27,9 @@ class PingBoy(QObject):
                                             self.config_values['hold_power_switch'],
                                             self.config_values['wait_before_shutdown'])
 
+    def __del__(self):
+        GPIO.cleanup()
+
     def __init_flags(self):
         """Initializes flags that are used when monitoring pings and restarting the PC."""
         # Counter to keep track of consecutive ping failures.
