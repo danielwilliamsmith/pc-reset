@@ -14,7 +14,7 @@ class PingBoy(QObject):
 
     def __init__(self):
         super(PingBoy, self).__init__()
-        
+
         # Create a logger.
         self.my_logger = CustomLogger("PC_reset_log.log")
         
@@ -26,9 +26,6 @@ class PingBoy(QObject):
         self.restart_thread = RestartThread(self.config_values['relay_channel'],
                                             self.config_values['hold_power_switch'],
                                             self.config_values['wait_before_shutdown'])
-
-    def __del__(self):
-        GPIO.cleanup()
 
     def __init_flags(self):
         """Initializes flags that are used when monitoring pings and restarting the PC."""
@@ -128,10 +125,10 @@ class PingBoy(QObject):
             else:
                 # The ping failed.
                 if(response != 0):
+                    self.flag_ping_fail_count += 1
                     # Do not restart the PC until the ping fails enough times consecutively.
                     if (self.flag_ping_fail_count < self.config_values['ping_fails_needed_for_restart']):
-                        self.flag_ping_fail_count += 1                       
-                        self.my_logger.logger.error("{} did not respond! Response = {} Consecutive fails = {} "
+                        self.my_logger.logger.error("{} did not respond! Response = {} Consecutive fails = {}"
                                         .format(self.config_values['hostname'], response, self.flag_ping_fail_count))
                                                
                     # The ping has failed enough times consecutively so restart the PC.
