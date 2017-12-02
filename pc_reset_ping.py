@@ -179,3 +179,20 @@ class RestartThread(QThread):
         GPIO.output(self.relay_channel, GPIO.LOW)
         time.sleep(self.hold_power_switch)
         GPIO.output(self.relay_channel, GPIO.HIGH)
+
+if __name__ == '__main__':
+    try:
+        my_pingboy = PingBoy()
+
+        while True:
+            # This executes a ping then waits before repeating it again.
+            my_pingboy.ping()
+            time.sleep(my_pingboy.config_values['wait_between_pings'])
+
+    except KeyboardInterrupt:
+        # Try to open the relay before exiting so that the PC does not get stuck
+        # in an endless restart.
+        GPIO.output(my_pingboy.config_values['relay_channel'], GPIO.HIGH)
+        GPIO.cleanup()
+
+        print("\nHe be gone, he be outta here!")

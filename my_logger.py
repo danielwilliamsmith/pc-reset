@@ -20,9 +20,15 @@ class CustomHandler(RotatingFileHandler, QObject):
         QObject.__init__(self)
 
     def emit(self, record):
+        """Override of emit in RotatingFileHandler."""
+        
+        # Emit a signal that can be used by the GUI to display the log message.
         message = self.format(record)
         self.sig_message_logged.emit(message)
 
+        # Call the normal logger handle.
+        super(CustomHandler, self).emit(record)
+        
 class CustomLogger(QObject):
     """
     Creates a logger that will rotate log files when they become too big.
