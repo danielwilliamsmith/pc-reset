@@ -181,7 +181,7 @@ def test_ping_failure_over_threshold_flag_ping_fail_count(pingboy, mock_ping_fai
     
     pingboy.ping()
 
-    assert pingboy.flag_ping_fail_count == 2
+    assert pingboy.flag_ping_fail_count == 3
 
 def test_ping_failure_over_threshold_flag_restarting(pingboy, mock_ping_fail):
     """A ping fails and the fail counter indicates a need for restart."""
