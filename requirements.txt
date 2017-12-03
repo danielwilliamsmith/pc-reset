@@ -1,0 +1,4 @@
+RPi.GPIO
+pytest
+pytest-mock
+pyqt5
