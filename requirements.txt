@@ -1,4 +1,4 @@
 RPi.GPIO
 pytest
 pytest-mock
-pyqt5
+vext.pyqt5
