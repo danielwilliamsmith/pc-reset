@@ -93,6 +93,10 @@ class PingBoy(QObject):
 
         return self.config_values
 
+    def close(self):
+        """Can use this to force anything that needs to be done before exiting."""
+        GPIO.cleanup()
+
     def ping(self):
         """
         Handles the pinging of the remote PC, initiating a restart,
